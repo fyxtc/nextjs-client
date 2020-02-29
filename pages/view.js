@@ -22,18 +22,22 @@ export default class View extends React.Component {
     if (!this.state.data) {
       return <p> loading </p>;
     } else {
-      return this.state.data.map(data => (
-        <li key={data.tid}>
-          {data.title}
-          &nbsp;&nbsp;
-          <Link href={"/edit?id=" + data.tid}>
-            <button type="button" value={data.tid}>
-              {" "}
-              edit{" "}
-            </button>
-          </Link>
-        </li>
-      ));
+      if(this.state.data.message){
+        return <p>{this.state.data.message}</p>
+      }else{
+        return this.state.data.map(data => (
+          <li key={data.tid}>
+            {data.title}
+            &nbsp;&nbsp;
+            <Link href={"/edit?id=" + data.tid}>
+              <button type="button" value={data.tid}>
+                {" "}
+                edit{" "}
+              </button>
+            </Link>
+          </li>
+        ));
+      }
     }
   }
 }

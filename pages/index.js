@@ -9,7 +9,7 @@ export default class Index extends React.Component {
       title: "",
       content: ""
     };
-    console.log(SERVER_URL)
+    console.log("SERVER_URL: " + SERVER_URL)
   }
 
   handleTitleChange(e) {
