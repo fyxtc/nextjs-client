@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Router from "next/router";
+import {SERVER_URL} from '../settings';
 
 export default class Index extends React.Component {
   constructor(props) {
@@ -8,6 +9,7 @@ export default class Index extends React.Component {
       title: "",
       content: ""
     };
+    console.log(SERVER_URL)
   }
 
   handleTitleChange(e) {
@@ -21,7 +23,7 @@ export default class Index extends React.Component {
   handleSubmit() {
     console.log(this.state.title);
     console.log(this.state.content);
-    fetch("http://localhost:8080/texts", {
+    fetch(SERVER_URL + "texts", {
       method: "POST",
       headers: {
         Accept: "application/json",

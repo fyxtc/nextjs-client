@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Router from "next/router";
+import {SERVER_URL} from '../settings';
 
 export default class View extends React.Component {
   constructor(props) {
@@ -9,7 +10,7 @@ export default class View extends React.Component {
     };
   }
   componentDidMount() {
-    fetch("http://localhost:8080/texts")
+    fetch(SERVER_URL + "texts")
       .then(resp => resp.json())
       .then(json => {
         console.log(json);
