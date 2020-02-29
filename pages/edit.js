@@ -49,6 +49,17 @@ export default class Edit extends React.Component {
       .catch(function(err) {
         console.log(err);
       });
+
+    // setTimeout(() => {
+    //   window.addEventListener("beforeunload", (ev) => 
+    //   {  
+    //     fetch(SERVER_URL + "unlock/" + this.props.query.id)
+    //   });
+    // }, 2000)
+  }
+
+  componentWillUnmount(){
+    fetch(SERVER_URL + "unlock/" + this.props.query.id)
   }
 
   handleContentChange(e) {
@@ -82,6 +93,7 @@ export default class Edit extends React.Component {
           value={this.state.content}
           onChange={this.handleContentChange.bind(this)}
         ></textarea>
+        <br/>
         <button
           type="button"
           value={this.props.query.id}
