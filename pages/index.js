@@ -1,35 +1,63 @@
-import React from 'react'
-import Head from 'next/head'
-import Logo from '../components/logo'
+import Link from "next/link";
+import Router from "next/router";
 
-export default () => (
-  <div className="root">
-    <Head>
-      <meta charSet="utf-8"/>
-      <meta httpEquiv="X-UA-Compatible" content="IE=edge"/>
-      <meta name="viewport" content="width=device-width, initial-scale=1"/>
-      <title>Next.js on Heroku</title>
-    </Head>
-    <style jsx>{`
-      .root {
-        font-family: sans-serif;
-        line-height: 1.33rem;
-        margin-top: 8vh,
-      }
-      @media (min-width: 600px) {
-        .root {
-          margin-left: 21vw;
-          margin-right: 21vw;
-        }
-      }
-    `}</style>
+export default class Index extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: "",
+      content: ""
+    };
+  }
 
-    <h1><Logo style={{ height: '1.45rem' }}/> Next.js on Heroku</h1>
+  handleTitleChange(e) {
+    this.setState({ title: e.target.value });
+  }
 
-    <p>Deploy <a href="https://nextjs.org/">Next.js</a> universal web apps on <a href="https://www.heroku.com/home">Heroku</a>.</p>
+  handleContentChange(e) {
+    this.setState({ content: e.target.value });
+  }
 
-    <p>This <strong>demo deployment on Heroku</strong> is from the repo <a href="https://github.com/mars/heroku-nextjs">mars/heroku-nextjs</a>.</p>
+  handleSubmit() {
+    console.log(this.state.title);
+    console.log(this.state.content);
+    fetch("http://localhost:8080/texts", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(this.state)
+    }).then(() => {
+      Router.push("/view");
+    });
+  }
 
-    <p><a href="https://github.com/mars/heroku-nextjs/archive/master.zip">Download this Next.js app</a> as a Heroku-ready template, or follow <a href="https://github.com/mars/heroku-nextjs#production-deployment">Production Deployment</a> to push an existing app to Heroku.</p>
-  </div>
-)
+  render() {
+    return (
+      <form>
+        <label>
+          title:
+          <br />
+          <input
+            type="text"
+            name="title"
+            onChange={this.handleTitleChange.bind(this)}
+          />
+        </label>
+        <br />
+        content:
+        <br />
+        <textarea
+          rows="3"
+          cols="20"
+          onChange={this.handleContentChange.bind(this)}
+        ></textarea>
+        <br />
+        <button type="button" onClick={this.handleSubmit.bind(this)}>
+          Submit
+        </button>
+      </form>
+    );
+  }
+}
