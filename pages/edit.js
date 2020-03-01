@@ -57,8 +57,16 @@ export default class Edit extends React.Component {
     //   });
     // }, 2000)
 
+    this.loopLock()
+  }
+
+  loopLock(){
     setTimeout(() => {
-      fetch(SERVER_URL + "lock/" + this.props.query.id)
+      console.log("loopLock >>>>>>>>>>")
+      if(this.state.isFound && !this.state.isLock){
+        fetch(SERVER_URL + "lock/" + this.props.query.id)
+      }
+      this.loopLock()
     }, 60 * 1000)
   }
 
