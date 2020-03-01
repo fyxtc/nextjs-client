@@ -56,6 +56,10 @@ export default class Edit extends React.Component {
     //     fetch(SERVER_URL + "unlock/" + this.props.query.id)
     //   });
     // }, 2000)
+
+    setTimeout(() => {
+      fetch(SERVER_URL + "lock/" + this.props.query.id)
+    }, 60 * 1000)
   }
 
   componentWillUnmount(){
